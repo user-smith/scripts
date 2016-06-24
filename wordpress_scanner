@@ -2,7 +2,7 @@
 
 #Define URL file
 
-	FILE_URL=/home/testfile.txt
+	FILE_URL=/home/urllist.txt
 
 #Define Today's Date
 
