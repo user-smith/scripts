@@ -21,8 +21,8 @@
 #Scan targets and output results
 
 	xargs -L 1 -a $FILE_URL ruby /usr/share/wpscan/./wpscan.rb --follow-redirection -v --url > wordpress_scan.${d}.txt 
-	xargs -L 1 -a $FILE_HN nmap -sV --script http-wordpress-enum > wordpress_enum.${d}.txt 
-	xargs -L 1 -a $FILE_HN nmap -sV --script http-wordpress-users > wordpress_users.${d}.txt
+	#xargs -L 1 -a $FILE_HN nmap -sV --script http-wordpress-enum > wordpress_enum.${d}.txt 
+	#xargs -L 1 -a $FILE_HN nmap -sV --script http-wordpress-users > wordpress_users.${d}.txt
 
 #Inform user scan is complete
 	
