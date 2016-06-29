@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#Script to find oracle in predefined subnets and combine results into single file
+#Use Masscan and possible nmap options
+
+#Define the input file for target subnets to scan
+	INPUT_FILE=/home/subnet_targets.txt
+
+#Define today's date
+	d=$(date +%Y-%m-%d)
+
+#Prompt user to wait for scan to complete
+	echo "Please wait while scanning"
+
+#Run massscan operations on target subnets as predefined by input file variable
+	xargs -L 1 -a $INPUT_FILE masscan -p 1521 --range > oracle_results.${d}.csv 
+
+#Inform user scan is complete
+	echo "DONE!"
