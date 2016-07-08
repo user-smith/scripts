@@ -1,0 +1,38 @@
+#!/bin/bash
+
+#Define URL file
+
+	FILE_URL=/home/urllist.txt
+
+#Define Today's Date
+
+        d=$(date +%y-%m-%d)
+
+#Extract hostnames from URL inputs
+	
+	xargs -L 1 -a $FILE_URL echo | cut -d'/' -f3 > hostnames.${d}.txt
+
+#Define Hostnames file to user
+	
+	FILE_HN=/home/hostnames.${d}.txt
+
+#Inform user scan is running
+
+	echo "Please wait while scans are running (this may take some time)."
+
+#update wpscanner definitions
+	
+	ruby /usr/share/wpscan/./wpscan.rb --update
+
+
+#Scan targets and output results
+
+	xargs -L 1 -a $FILE_URL ruby /usr/share/wpscan/./wpscan.rb --batch --follow-redirection -v --url > wpscan_results.${d}.txt 
+	xargs -L 1 -a $FILE_URL droopescan scan -u > droopescan_results.${d}.txt
+	xargs -L 1 -a $FILE_HN nmap -sV --script http-wordpress-enum > wordpress_enum.${d}.txt 
+	xargs -L 1 -a $FILE_HN nmap -sV --script http-wordpress-users > wordpress_users.${d}.txt
+
+#Inform user scan is complete
+	
+	echo "DONE!"
+
